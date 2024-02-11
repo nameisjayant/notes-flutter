@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/components/header_component.dart';
+import 'package:flutter_app/navigation/app_navigation.dart';
 
 class AddEditNotes extends StatelessWidget {
   const AddEditNotes({super.key});
@@ -14,7 +15,7 @@ class AddEditNotes extends StatelessWidget {
           children: [
             HeaderComponent(
                 onClick: () {
-                  Navigator.pop(context);
+                  navigateBack(context);
                 },
                 title: "Add Notes")
           ],

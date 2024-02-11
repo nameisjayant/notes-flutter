@@ -20,3 +20,8 @@ class AppNavigation {
 
 MaterialPageRoute<dynamic> materialPageRoute(Widget widget) =>
     MaterialPageRoute(builder: (context) => widget);
+
+void navigate({required String path, required BuildContext context}) =>
+    Navigator.pushNamed(context, path);
+
+void navigateBack(BuildContext context) => Navigator.pop(context);

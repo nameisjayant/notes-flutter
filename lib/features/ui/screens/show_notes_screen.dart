@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/components/icon_component.dart';
 import 'package:flutter_app/components/notes_each_row.dart';
 import 'package:flutter_app/components/searchbar_component.dart';
+import 'package:flutter_app/navigation/app_navigation.dart';
 import 'package:flutter_app/navigation/navigation_routes.dart';
 
 class ShowNotesScreen extends StatelessWidget {
@@ -31,7 +32,7 @@ class ShowNotesScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, NavigationRoutes.addEdit);
+          navigate(path: NavigationRoutes.addEdit, context: context);
         },
         backgroundColor: Colors.grey,
         child: iconComponent(iconData: Icons.add),
