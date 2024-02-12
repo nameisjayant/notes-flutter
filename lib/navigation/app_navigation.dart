@@ -10,7 +10,7 @@ class AppNavigation {
       case NavigationRoutes.splash:
         return materialPageRoute(const SplashScreen());
       case NavigationRoutes.addEdit:
-        return materialPageRoute(const AddEditNotes());
+        return materialPageRoute(AddEditNotes());
       case NavigationRoutes.note:
         return materialPageRoute(ShowNotesScreen());
     }

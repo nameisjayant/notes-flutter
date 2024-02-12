@@ -2,13 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/components/icon_component.dart';
 import 'package:flutter_app/components/notes_each_row.dart';
 import 'package:flutter_app/components/searchbar_component.dart';
+import 'package:flutter_app/config/hive_service.dart';
 import 'package:flutter_app/navigation/app_navigation.dart';
 import 'package:flutter_app/navigation/navigation_routes.dart';
+import 'package:provider/provider.dart';
 
-class ShowNotesScreen extends StatelessWidget {
+class ShowNotesScreen extends StatefulWidget {
+  const ShowNotesScreen({super.key});
+
+  @override
+  State<ShowNotesScreen> createState() => _ShowNotesScreenState();
+}
+
+class _ShowNotesScreenState extends State<ShowNotesScreen> {
   final TextEditingController search = TextEditingController();
+  var provider;
 
-  ShowNotesScreen({super.key});
+  @override
+  void initState() {
+    provider = Provider.of<HiveService>(context, listen: false);
+    provider.getNotes();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +34,19 @@ class ShowNotesScreen extends StatelessWidget {
           child: Column(
             children: [
               SearchBarComponent(value: search),
-              Expanded(
-                  child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return const NoteEachRow(
-                            title: "Title ", description: "Hell How are you");
-                      },
-                      itemCount: 50))
+              Consumer<HiveService>(builder: (context, HiveService, widget) {
+                if (HiveService.noteList?.isEmpty == true) {
+                  return Center();
+                }
+                return Expanded(
+                    child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return NoteEachRow(
+                              title: HiveService.noteList![index].title,
+                              description: HiveService.noteList![index].description);
+                        },
+                        itemCount: HiveService.noteList?.length ?? 0));
+              })
             ],
           ),
         ),
